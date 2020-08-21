@@ -1,4 +1,5 @@
-var CACHE_NAME = "my-site-cache-v1";
+// Declaring cache and data cache variables
+const CACHE_NAME = "my-site-cache-v1";
 const DATA_CACHE_NAME = "data-cache-v1";
 
 var urlsToCache = [
@@ -11,11 +12,15 @@ var urlsToCache = [
   "/icons/icon-512x512.png",
 ];
 
+// On install - caching the application shell
 self.addEventListener("install", function (event) {
   // Perform install steps
+  // Tells the browser that work is ongoing until the promise settles
   event.waitUntil(
+    // Opens a cache with name provided
     caches.open(CACHE_NAME).then(function (cache) {
       console.log("Opened cache");
+      // Service worker will only install if all all resources (urls) have been cached
       return cache.addAll(urlsToCache);
     })
   );
